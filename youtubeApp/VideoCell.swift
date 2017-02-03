@@ -8,17 +8,49 @@
 
 import UIKit
 
-class VideoCell: UICollectionViewCell {
-    
+class BaseCell: UICollectionViewCell {
     override init(frame: CGRect){
         super.init(frame: frame)
         setupViews()
     }
     
+    func setupViews() {
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+}
+
+
+class VideoCell: BaseCell {
+    
+    var video: Video? {
+        didSet{
+            titleLabel.text = video?.title
+            thumbnailImageView.image = UIImage(named: (video?.thumbnailImageName)!)
+            
+            if let profileImageName = video?.channel?.profileImageName{
+                userProfileImageView.image = UIImage(named: profileImageName)
+            }
+            
+            if let channelName = video?.channel?.name, let numberViews = video?.numberOfViews{
+                
+                let numberFormat = NumberFormatter()
+                numberFormat.numberStyle = .decimal
+                
+                let subtitleText = "\(channelName) · \(numberFormat.string(from: numberViews)!)"
+                subtitleTextView.text = subtitleText
+            }
+        }
+    }
     
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.orange
+        //imageView.backgroundColor = UIColor.orange
         //imageView.image = UIImage(named: "IMAGENAME")
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -44,7 +76,7 @@ class VideoCell: UICollectionViewCell {
         let label = UILabel()
         //label.backgroundColor = UIColor.purple
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Caifanes - FIN"
+        //label.text = "Caifanes - FIN"
         return label
     }()
     
@@ -52,13 +84,13 @@ class VideoCell: UICollectionViewCell {
         let textView = UITextView()
         //textView.backgroundColor = UIColor.red
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.text = "Cancio sugerida por alberto . 1,606,543,607 . 2 YEARS AGO"
+        //textView.text = "algo aqui"
         textView.textContainerInset = UIEdgeInsetsMake(0, -4, 0, 0)
         textView.textColor = UIColor.lightGray
         return textView
     }()
     
-    func setupViews(){
+    override func setupViews(){
         addSubview(thumbnailImageView)
         addSubview(separatorView)
         addSubview(userProfileImageView)
@@ -102,9 +134,6 @@ class VideoCell: UICollectionViewCell {
         //addConstraintsWithFormat(format: "V:[v0(20)]", views: titleLabel)
         //addConstraintsWithFormat(format: "H:|[v0]|", views: titleLabel)
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+
     
 }
