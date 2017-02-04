@@ -10,7 +10,7 @@ import UIKit
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
-    var videos: [Video] = {
+    /*var videos: [Video] = {
         var elcnal = Channel()
         elcnal.name = "El mejor canal"
         elcnal.profileImageName = "yo"
@@ -35,10 +35,83 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         return [blankSpaceVideo, otro, blankSpace]
         
-    }()
+    }()*/
+    
+    var videos: [Video]?
+    
+    func fetchVideos()  {
+        let url = NSURL(string: "https://s3-us-west-2.amazonaws.com/youtubeassets/home.json")
+        
+        //URLSession.shared.dataTask(with: url!, completionHandler: <#T##(Data?, URLResponse?, Error?) -> Void#>)
+        /*URLSession.shared.dataTask(with: url!) {
+            (data, response) in
+            if error != nil {
+                
+            }
+            
+        }.resume()*/
+        
+        let request = NSMutableURLRequest(url: url! as URL)
+            //NSMutableURLRequest(url: URL(string:  url! ,param: param))!,
+        //cachePolicy: .useProtocolCachePolicy,
+        //timeoutInterval: 200)
+        request.httpMethod = "GET"
+        //request.allHTTPHeaderFields = headers as? [String : String]
+        
+        let session = URLSession.shared
+        
+        let dataTask = session.dataTask(with: request as URLRequest) {data,response,error in
+            //let httpResponse = response as? HTTPURLResponse
+            
+            if (error != nil) {
+                return
+            }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableLeaves)
+                
+                self.videos = [Video]()
+                
+                for dictionary in json as! [[String: Any]]{
+                    let video = Video()
+                    video.title =  dictionary["title"]! as? String
+                    video.thumbnailImageName = dictionary["thumbnail_image_name"] as? String
+                    video.numberOfViews = dictionary["number_of_views"] as? NSNumber
+                    
+                    
+                    let chanelDictionary =  dictionary["channel"] as! [String: Any]
+                    
+                    
+                    //video.channel?.name = chanelDictionary["name"] as? String
+                    let channel = Channel()
+                    channel.name = chanelDictionary["name"] as? String
+                    channel.profileImageName = chanelDictionary["profile_image_name"] as? String
+                    //print(channel)
+                    video.channel = channel
+                    self.videos?.append(video)
+                    //print(dictionary["title"]!)
+                }
+                self.collectionView?.reloadData()
+                //print(json)
+            }catch let jsonError {
+                print(jsonError)
+            }
+            
+            //let str = NSString(data: data!, encoding: 8)
+            DispatchQueue.main.async {
+                //Update your UI here
+            }
+            
+        }
+        dataTask.resume()
+    
+    
+    
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        fetchVideos()
         
         navigationItem.title = "Home"
         navigationController?.navigationBar.isTranslucent = false
@@ -89,12 +162,17 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return videos.count
+        return videos?.count ?? 0
+        /*if let count = videos?.count{
+            return count
+        }
+        return 0*/
+        //return videos?.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! VideoCell
-        cell.video = videos[indexPath.item]
+        cell.video = videos?[indexPath.item]
         //cell.backgroundColor = UIColor.white
         return cell
     }

@@ -31,14 +31,12 @@ class VideoCell: BaseCell {
     var video: Video? {
         didSet{
             titleLabel.text = video?.title
-            thumbnailImageView.image = UIImage(named: (video?.thumbnailImageName)!)
             
-            if let profileImageName = video?.channel?.profileImageName{
-                userProfileImageView.image = UIImage(named: profileImageName)
-            }
+            setupThumbnailImage()
+            setupProfileImage()
             
             if let channelName = video?.channel?.name, let numberViews = video?.numberOfViews{
-                
+            
                 let numberFormat = NumberFormatter()
                 numberFormat.numberStyle = .decimal
                 
@@ -63,6 +61,18 @@ class VideoCell: BaseCell {
         
     }
     
+    func setupProfileImage(){
+        if let profileImageName = video?.channel?.profileImageName{
+            userProfileImageView.loadImageUsingURLString(urlString: profileImageName)
+        }
+    }
+    
+    func setupThumbnailImage()  {
+        if let thumnailImageURL = video?.thumbnailImageName{
+            thumbnailImageView.loadImageUsingURLString(urlString: thumnailImageURL)
+        }
+    }
+    
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
         //imageView.backgroundColor = UIColor.orange
@@ -75,9 +85,9 @@ class VideoCell: BaseCell {
     let userProfileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.gray
-        //imageView.image = UIImage(named: "IMAGETWO")
         imageView.layer.cornerRadius = 22
         imageView.layer.masksToBounds = true
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
