@@ -45,7 +45,22 @@ class VideoCell: BaseCell {
                 let subtitleText = "\(channelName) · \(numberFormat.string(from: numberViews)!)"
                 subtitleTextView.text = subtitleText
             }
+            
+            //measure title text
+            if let title = video?.title {
+                let size = CGSize(width: frame.width - 16 - 44 - 8 - 16, height: 1000)
+                let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+                let estimatedRect = NSString(string: title).boundingRect(with: size, options: options, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 14)], context: nil)
+                
+                
+                if estimatedRect.size.height > 20 {
+                    titleLabelHeightConstraint?.constant = 44
+                }else{
+                    titleLabelHeightConstraint?.constant = 20
+                }
+            }
         }
+        
     }
     
     let thumbnailImageView: UIImageView = {
@@ -90,6 +105,8 @@ class VideoCell: BaseCell {
         return textView
     }()
     
+    var titleLabelHeightConstraint: NSLayoutConstraint?
+    
     override func setupViews(){
         addSubview(thumbnailImageView)
         addSubview(separatorView)
@@ -101,7 +118,7 @@ class VideoCell: BaseCell {
         
         addConstraintsWithFormat(format: "H:|-16-[v0(44)]", views: userProfileImageView)
         //vertical constrins
-        addConstraintsWithFormat(format: "V:|-16-[v0]-8-[v1(44)]-16-[v2(1)]|", views: thumbnailImageView, userProfileImageView, separatorView)
+        addConstraintsWithFormat(format: "V:|-16-[v0]-8-[v1(44)]-36-[v2(1)]|", views: thumbnailImageView, userProfileImageView, separatorView)
         addConstraintsWithFormat(format: "H:|[v0]|", views: separatorView)
         
         //top contrains
@@ -114,7 +131,8 @@ class VideoCell: BaseCell {
         addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .right, relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1, constant: 0))
         
         //height constraint
-        addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 20))
+        titleLabelHeightConstraint = NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 44)
+        addConstraint(titleLabelHeightConstraint!)
         
         
         //top contrains
