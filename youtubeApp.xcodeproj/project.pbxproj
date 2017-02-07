@@ -12,10 +12,12 @@
 		D62F70331E429A55008C4404 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D62F70311E429A55008C4404 /* Main.storyboard */; };
 		D62F70351E429A55008C4404 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D62F70341E429A55008C4404 /* Assets.xcassets */; };
 		D62F70381E429A55008C4404 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D62F70361E429A55008C4404 /* LaunchScreen.storyboard */; };
+		D6601A831E490F1600EEE640 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6601A821E490F1600EEE640 /* SettingCell.swift */; };
 		D6AA23CC1E43F3E10081BD2A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AA23CB1E43F3E10081BD2A /* Extensions.swift */; };
 		D6AA23CF1E43F4820081BD2A /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AA23CE1E43F4820081BD2A /* VideoCell.swift */; };
 		D6AA23D21E43F8940081BD2A /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AA23D11E43F8940081BD2A /* MenuBar.swift */; };
 		D6AA23D51E453CA80081BD2A /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AA23D41E453CA80081BD2A /* Video.swift */; };
+		D6AA23D71E46637A0081BD2A /* SettingsLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AA23D61E46637A0081BD2A /* SettingsLauncher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,10 +28,12 @@
 		D62F70341E429A55008C4404 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D62F70371E429A55008C4404 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D62F70391E429A55008C4404 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D6601A821E490F1600EEE640 /* SettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		D6AA23CB1E43F3E10081BD2A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D6AA23CE1E43F4820081BD2A /* VideoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		D6AA23D11E43F8940081BD2A /* MenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		D6AA23D41E453CA80081BD2A /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
+		D6AA23D61E46637A0081BD2A /* SettingsLauncher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsLauncher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +92,7 @@
 			children = (
 				D6AA23CE1E43F4820081BD2A /* VideoCell.swift */,
 				D6AA23D11E43F8940081BD2A /* MenuBar.swift */,
+				D6601A821E490F1600EEE640 /* SettingCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -96,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				D62F702F1E429A55008C4404 /* HomeController.swift */,
+				D6AA23D61E46637A0081BD2A /* SettingsLauncher.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -182,7 +188,9 @@
 			files = (
 				D62F70301E429A55008C4404 /* HomeController.swift in Sources */,
 				D6AA23D51E453CA80081BD2A /* Video.swift in Sources */,
+				D6601A831E490F1600EEE640 /* SettingCell.swift in Sources */,
 				D6AA23CF1E43F4820081BD2A /* VideoCell.swift in Sources */,
+				D6AA23D71E46637A0081BD2A /* SettingsLauncher.swift in Sources */,
 				D6AA23CC1E43F3E10081BD2A /* Extensions.swift in Sources */,
 				D62F702E1E429A55008C4404 /* AppDelegate.swift in Sources */,
 				D6AA23D21E43F8940081BD2A /* MenuBar.swift in Sources */,

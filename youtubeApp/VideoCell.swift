@@ -50,7 +50,7 @@ class VideoCell: BaseCell {
                 let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
                 let estimatedRect = NSString(string: title).boundingRect(with: size, options: options, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 14)], context: nil)
                 
-                
+            
                 if estimatedRect.size.height > 20 {
                     titleLabelHeightConstraint?.constant = 44
                 }else{
@@ -58,7 +58,6 @@ class VideoCell: BaseCell {
                 }
             }
         }
-        
     }
     
     func setupProfileImage(){
@@ -73,17 +72,16 @@ class VideoCell: BaseCell {
         }
     }
     
-    let thumbnailImageView: UIImageView = {
-        let imageView = UIImageView()
-        //imageView.backgroundColor = UIColor.orange
-        //imageView.image = UIImage(named: "IMAGENAME")
+    let thumbnailImageView: CustomImageView = {
+        let imageView = CustomImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 8
         return imageView
     }()
     
-    let userProfileImageView: UIImageView = {
-        let imageView = UIImageView()
+    let userProfileImageView: CustomImageView = {
+        let imageView = CustomImageView()
         imageView.backgroundColor = UIColor.gray
         imageView.layer.cornerRadius = 22
         imageView.layer.masksToBounds = true

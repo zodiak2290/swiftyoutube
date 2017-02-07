@@ -9,39 +9,11 @@
 import UIKit
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-
-    /*var videos: [Video] = {
-        var elcnal = Channel()
-        elcnal.name = "El mejor canal"
-        elcnal.profileImageName = "yo"
-        
-        var blankSpaceVideo = Video()
-        blankSpaceVideo.title = "fin - caifanes"
-        blankSpaceVideo.thumbnailImageName  = "fin"
-        blankSpaceVideo.channel = elcnal
-        blankSpaceVideo.numberOfViews = 11234234
-        
-        var otro = Video()
-        otro.title = "antes de que nos olviden-  caifanes"
-        otro.thumbnailImageName  = "antes"
-        otro.channel = elcnal
-        otro.numberOfViews = 123123
-
-        var blankSpace = Video()
-        blankSpace.title = "fin - jaguares"
-        blankSpace.thumbnailImageName  = "fin"
-        blankSpace.channel = elcnal
-        blankSpace.numberOfViews = 1234234
-        
-        return [blankSpaceVideo, otro, blankSpace]
-        
-    }()*/
     
     var videos: [Video]?
     
     func fetchVideos()  {
         let url = NSURL(string: "https://s3-us-west-2.amazonaws.com/youtubeassets/home.json")
-        
         //URLSession.shared.dataTask(with: url!, completionHandler: <#T##(Data?, URLResponse?, Error?) -> Void#>)
         /*URLSession.shared.dataTask(with: url!) {
             (data, response) in
@@ -140,7 +112,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let searchBarButtonItem =  UIBarButtonItem(image: searchImage, style: .plain, target: self, action: #selector(handleSearch))
         
         let moreImage = UIImage(named: "more")?.withRenderingMode(.alwaysOriginal)
-        let moreButton = UIBarButtonItem(image: moreImage, style: .plain, target: self, action: #selector(handleSearch))
+        let moreButton = UIBarButtonItem(image: moreImage, style: .plain, target: self, action: #selector(handleMore))
         
         navigationItem.rightBarButtonItems = [moreButton, searchBarButtonItem]
         
@@ -149,6 +121,14 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     func handleSearch() {
         print("hi")
     }
+    
+    
+    let settin = SettingsLauncher()
+    func handleMore() {
+        //show menu
+        settin.showSettings()
+    }
+    
     
     let menuBar: MenuBar = {
         let mb = MenuBar()
@@ -163,11 +143,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return videos?.count ?? 0
-        /*if let count = videos?.count{
-            return count
-        }
-        return 0*/
-        //return videos?.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

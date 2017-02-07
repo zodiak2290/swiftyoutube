@@ -28,11 +28,25 @@ extension UIView{
     }
 }
 
-extension UIImageView {
+let imageCache = NSCache<AnyObject, AnyObject>()
+
+class CustomImageView: UIImageView {
+    
+    var imageUrlString: String?
+    
     func loadImageUsingURLString(urlString: String)  {
+        
+        imageUrlString = urlString
+        
         let url = NSURL(string: urlString)
         
+        image = nil
         
+        
+        if let imageFormCache = imageCache.object(forKey: urlString as AnyObject) as? UIImage{
+            self.image = imageFormCache
+            return
+        }
         
         let request = NSMutableURLRequest(url: url! as URL)
         request.httpMethod = "GET"
@@ -43,9 +57,22 @@ extension UIImageView {
                 return
             }
             DispatchQueue.main.async {
-                self.image = UIImage(data: data!)
+                let imageToCache = UIImage(data: data!)
+                
+                if self.imageUrlString == urlString {
+                    self.image = imageToCache
+                }
+                
+                imageCache.setObject(imageToCache!, forKey: urlString as AnyObject)
+                
+                
             }
         }
         dataTask.resume()
     }
 }
+
+
+
+
+
