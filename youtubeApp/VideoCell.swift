@@ -99,7 +99,6 @@ class VideoCell: BaseCell {
         let label = UILabel()
         //label.backgroundColor = UIColor.purple
         label.translatesAutoresizingMaskIntoConstraints = false
-        //label.text = "Caifanes - FIN"
         return label
     }()
     
@@ -141,7 +140,6 @@ class VideoCell: BaseCell {
         //height constraint
         titleLabelHeightConstraint = NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0, constant: 44)
         addConstraint(titleLabelHeightConstraint!)
-        
         
         //top contrains
         addConstraint(NSLayoutConstraint(item: subtitleTextView, attribute: .top, relatedBy: .equal, toItem: titleLabel, attribute: .bottom, multiplier: 1, constant: 4))
